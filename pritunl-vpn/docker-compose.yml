@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: vpn-mongodb
+    restart: always
+    volumes:
+      - ./volumes/mongodb:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    networks:
+      - vpn-network
+
+  pritunl:
+    image: goofball222/pritunl:latest
+    container_name: vpn-pritunl
+    depends_on:
+      - mongodb
+    restart: always
+    privileged: true
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - "80:80"        # Port pour le certificat Let's Encrypt / Redirection HTTPS
+      - "443:443"      # Port pour l'interface d'administration web
+      - "1194:1194/udp" # Port standard pour le trafic VPN OpenVPN
+    volumes:
+      - ./volumes/pritunl:/var/lib/pritunl
+    environment:
+      MONGODB_URI: mongodb://${MONGO_USER}:${MONGO_PASS}@mongodb:27017/pritunl?authSource=admin
+    networks:
+      - vpn-network
+
+networks:
+  vpn-network:
+    driver: bridge
