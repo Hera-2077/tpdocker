@@ -1,0 +1,41 @@
+    1  docker --version
+    2  docker ps
+    3  docker --version
+    4  docker ps
+    5  sudo usermod -aG docker $USER
+    6  newgrp docker
+    7  docker ps
+    8  docker volume create jenkins_data
+    9  docker run -d   --name jenkins   -p 8080:8080   -p 50000:50000   -v jenkins_data:/var/jenkins_home   jenkins/jenkins:lts
+   10  docker ps
+   11  docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+   12  mkdir tp1-docker
+   13  cd tp1-docker
+   14  mkdir tp1-docker
+   15  cd ~
+   16  mkdir tp1-docker
+   17  cd tp1-docker
+   18  touch Dockerfile app.py requirements.txt
+   19  docker build -t Ngadena-flask-app
+   20  docker build -t ngadena-flask-app .
+   21  docker run -d -p 5000:5000 ngadena-flask-app
+   22  docker login
+   23  docker tag ngadena-flask-app ton_dockerhub/ngadena-flask-app
+   24  docker push ton_dockerhub/ngadena-flask-app
+   25  docker tag ngadena-flask-app kuzan2077/ngadena-flask-app
+   26  docker push kuzan2077/ngadena-flask-app
+   27  git init
+   28  git add .
+   29  git commit -m "TP1 DOCKER"
+   30  git config --global user.name "Hera-2077"
+   31  git config --global user.email "ralphsantiago.memong@gmail.com"
+   32  git commit -m "TP1 DOCKER"
+   33  git branch -M main
+   34  git remote add origin Hera-2077
+   35  git push -u origin main
+   36  git remote add origin https://github.com/Hera-2077/tpdocker.git
+   37  git remote remove origin
+   38  git remote add origin https://github.com/Hera-2077/tpdocker.git
+   39  git remote -v
+   40  git push -u origin main
+   41  history > commandes.txt
